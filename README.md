@@ -2,8 +2,19 @@
 
 Simple static GitHub Pages version.
 
-Upload `index.html` and `README.md` to the root of the repository, then use:
+## Files
 
-Settings → Pages → Deploy from a branch → main → /root
+Upload the contents of this folder to the root of the GitHub repository:
 
-Responses are sent to the Google Apps Script endpoint already included in `index.html`.
+- `index.html`
+- `README.md`
+
+## GitHub Pages settings
+
+Use:
+
+- Source: Deploy from a branch
+- Branch: main
+- Folder: /root
+
+The questionnaire sends responses to the configured Google Apps Script Web App URL.
