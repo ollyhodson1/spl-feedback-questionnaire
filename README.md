@@ -1,7 +1,9 @@
 # SPL Feedback questionnaire
 
-This is a no-build static web app.
+Simple static GitHub Pages version.
 
-Upload `index.html` to the root of a GitHub repository and publish it using GitHub Pages.
+Upload `index.html` and `README.md` to the root of the repository, then use:
 
-Google Sheets endpoint is already included in the code.
+Settings → Pages → Deploy from a branch → main → /root
+
+Responses are sent to the Google Apps Script endpoint already included in `index.html`.
