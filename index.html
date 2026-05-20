@@ -1,0 +1,1315 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>SPL Feedback questionnaire</title>
+  <style>
+    :root {
+      --salford-red: #d71920;
+      --salford-navy: #013149;
+      --salford-blue: #006891;
+      --salford-green: #2eb895;
+      --salford-yellow: #fece17;
+      --salford-grey: #f8f8f8;
+      --slate-950: #020617;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-300: #cbd5e1;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --white: #ffffff;
+      --shadow: 0 18px 45px rgba(15, 23, 42, 0.14);
+      --radius-xl: 24px;
+      --radius-2xl: 34px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: "Replica Pro", Arial, Helvetica, sans-serif;
+      background: var(--slate-100);
+      color: var(--slate-950);
+    }
+
+    button, input, textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.45;
+    }
+
+    textarea, input {
+      width: 100%;
+      border: 2px solid var(--slate-200);
+      background: var(--salford-grey);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      color: var(--slate-950);
+      outline: none;
+    }
+
+    textarea:focus, input:focus {
+      border-color: var(--salford-red);
+      box-shadow: 0 0 0 4px rgba(215, 25, 32, 0.12);
+    }
+
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid rgba(203, 213, 225, 0.7);
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+      backdrop-filter: blur(10px);
+    }
+
+    .topbar-inner {
+      max-width: 1800px;
+      margin: 0 auto;
+      min-height: 86px;
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand-kicker {
+      color: var(--salford-red);
+      font-size: 18px;
+      line-height: 1.1;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    .brand-title {
+      margin-top: 4px;
+      color: var(--slate-950);
+      font-size: 25px;
+      line-height: 1.1;
+      font-weight: 900;
+    }
+
+    .progress-wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-width: 330px;
+    }
+
+    .progress-track {
+      height: 14px;
+      flex: 1;
+      overflow: hidden;
+      border-radius: 999px;
+      background: var(--slate-200);
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: var(--salford-red);
+      transition: width 280ms ease;
+    }
+
+    .progress-percent {
+      min-width: 54px;
+      text-align: right;
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--slate-900);
+    }
+
+    .app-shell {
+      max-width: 1800px;
+      margin: 0 auto;
+      padding: 116px 28px 32px;
+    }
+
+    .section-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .nav-pill {
+      min-height: 62px;
+      min-width: 72px;
+      padding: 12px 18px;
+      border: 2px solid var(--slate-200);
+      border-radius: 18px;
+      background: var(--white);
+      color: var(--slate-900);
+      font-size: 22px;
+      line-height: 1;
+      font-weight: 900;
+      transition: transform 180ms ease, background 180ms ease, color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .nav-pill:hover { transform: translateY(-2px); }
+    .nav-pill.active { background: var(--salford-red); border-color: var(--salford-red); color: var(--white); box-shadow: var(--shadow); }
+    .nav-pill.complete:not(.active) { background: var(--salford-navy); border-color: var(--salford-navy); color: var(--white); }
+
+    .page-enter {
+      animation: pageEnter 280ms ease both;
+    }
+
+    @keyframes pageEnter {
+      from { opacity: 0; transform: translateX(32px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .intro-card {
+      position: relative;
+      min-height: calc(100vh - 170px);
+      overflow: hidden;
+      border-radius: 40px;
+      background: var(--white);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--slate-200);
+    }
+
+    .intro-navy {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 22%;
+      background: var(--salford-navy);
+    }
+
+    .intro-content {
+      position: relative;
+      z-index: 2;
+      min-height: calc(100vh - 170px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 70px;
+      max-width: 78%;
+    }
+
+    .intro-small {
+      margin: 0 0 18px;
+      color: var(--salford-navy);
+      font-size: 30px;
+      line-height: 1.1;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .intro-title {
+      margin: 0;
+      max-width: 980px;
+      color: var(--slate-950);
+      font-size: clamp(58px, 7vw, 118px);
+      line-height: 0.96;
+      letter-spacing: -0.05em;
+      font-weight: 900;
+    }
+
+    .intro-copy {
+      max-width: 920px;
+      margin: 34px 0 0;
+      color: var(--slate-600);
+      font-size: 30px;
+      line-height: 1.5;
+      font-weight: 700;
+    }
+
+    .start-button {
+      min-height: 118px;
+      width: min(860px, 100%);
+      margin-top: 60px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      border-radius: 28px;
+      background: var(--salford-red);
+      color: var(--white);
+      font-size: 38px;
+      font-weight: 900;
+      box-shadow: 0 22px 46px rgba(215, 25, 32, 0.28);
+      transition: transform 180ms ease, filter 180ms ease;
+    }
+
+    .start-button:hover { transform: translateY(-2px); filter: brightness(0.97); }
+
+    .section-header {
+      margin-bottom: 28px;
+      overflow: hidden;
+      border-radius: 34px;
+      background: var(--white);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--slate-200);
+      display: grid;
+      grid-template-columns: 1fr 300px;
+    }
+
+    .section-header-main { padding: 42px; }
+
+    .badges { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 8px 20px;
+      border-radius: 999px;
+      font-size: 22px;
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .badge-red { background: var(--salford-red); color: var(--white); }
+    .badge-grey { background: var(--slate-100); color: var(--slate-700); }
+
+    .section-title {
+      margin: 0;
+      max-width: 1160px;
+      font-size: clamp(44px, 5vw, 72px);
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+      font-weight: 900;
+    }
+
+    .section-subtitle {
+      max-width: 1050px;
+      margin: 18px 0 0;
+      color: var(--slate-600);
+      font-size: 28px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    .section-progress-panel {
+      position: relative;
+      min-height: 220px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background: var(--salford-navy);
+      color: var(--white);
+    }
+
+    .section-progress-number {
+      position: relative;
+      z-index: 2;
+      font-size: 66px;
+      line-height: 1;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .section-progress-label {
+      margin-top: 8px;
+      font-size: 20px;
+      line-height: 1.1;
+      font-weight: 900;
+      text-align: center;
+      opacity: 0.92;
+    }
+
+    .card {
+      margin-bottom: 28px;
+      border-radius: 34px;
+      background: var(--white);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--slate-200);
+      padding: 34px;
+    }
+
+    .question-title {
+      margin: 0 0 24px;
+      color: var(--slate-950);
+      font-size: 34px;
+      line-height: 1.15;
+      font-weight: 900;
+    }
+
+    .question-note {
+      margin: -8px 0 24px;
+      color: var(--slate-600);
+      font-size: 22px;
+      line-height: 1.35;
+      font-weight: 800;
+    }
+
+    .choice-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .choice-button {
+      min-height: 86px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border: 2px solid var(--slate-200);
+      border-radius: 24px;
+      background: var(--white);
+      color: var(--slate-950);
+      padding: 18px 24px;
+      text-align: left;
+      font-size: 26px;
+      line-height: 1.16;
+      font-weight: 900;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+      transition: transform 160ms ease, background 160ms ease, color 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    .choice-button:hover { transform: translateY(-2px); border-color: rgba(215, 25, 32, 0.35); background: #fff2f2; }
+    .choice-button.selected { background: var(--salford-red); border-color: var(--salford-red); color: var(--white); box-shadow: 0 16px 34px rgba(215, 25, 32, 0.2); }
+
+    .check-mark { flex: 0 0 auto; font-size: 30px; font-weight: 900; }
+
+    .other-input { margin-top: 18px; min-height: 78px; font-size: 26px; font-weight: 800; }
+
+    .rating-item {
+      margin-top: 16px;
+      border: 1px solid var(--slate-200);
+      border-radius: 28px;
+      background: var(--salford-grey);
+      padding: 22px;
+    }
+
+    .rating-label {
+      margin-bottom: 16px;
+      color: var(--slate-900);
+      font-size: 27px;
+      line-height: 1.2;
+      font-weight: 900;
+    }
+
+    .rating-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .rating-grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .rating-button {
+      min-height: 68px;
+      border: 2px solid var(--slate-200);
+      border-radius: 20px;
+      background: var(--white);
+      color: var(--slate-900);
+      padding: 14px;
+      text-align: center;
+      font-size: 21px;
+      line-height: 1.12;
+      font-weight: 900;
+      transition: transform 160ms ease, background 160ms ease, color 160ms ease, border-color 160ms ease;
+    }
+
+    .rating-button:hover { transform: translateY(-2px); background: #eef8fb; border-color: rgba(0, 104, 145, 0.35); }
+    .rating-button.selected { background: var(--salford-navy); border-color: var(--salford-navy); color: var(--white); }
+
+    .text-large { min-height: 180px; font-size: 28px; line-height: 1.45; font-weight: 700; }
+    .text-final { min-height: 420px; font-size: 32px; line-height: 1.45; font-weight: 700; }
+
+    .bottom-nav {
+      position: sticky;
+      bottom: 0;
+      z-index: 30;
+      margin-top: 34px;
+      padding: 16px 0 0;
+      background: linear-gradient(to top, var(--slate-100) 78%, rgba(241, 245, 249, 0));
+    }
+
+    .bottom-nav-inner {
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      gap: 16px;
+      padding: 16px;
+      border-radius: 30px 30px 0 0;
+      background: rgba(241, 245, 249, 0.96);
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-button {
+      min-height: 88px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      border-radius: 22px;
+      padding: 18px 26px;
+      font-size: 26px;
+      line-height: 1.1;
+      font-weight: 900;
+      transition: transform 160ms ease, filter 160ms ease;
+    }
+
+    .nav-button:hover:not(:disabled) { transform: translateY(-2px); }
+    .nav-button.secondary { background: var(--white); color: var(--slate-950); box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08); }
+    .nav-button.primary { min-height: 98px; background: var(--salford-red); color: var(--white); font-size: 32px; box-shadow: 0 18px 38px rgba(215, 25, 32, 0.22); }
+    .nav-button.submit { background: var(--salford-green); color: var(--white); }
+
+    .complete-card {
+      border-radius: 40px;
+      background: var(--white);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--slate-200);
+      padding: 54px;
+    }
+
+    .complete-icon {
+      width: 100px;
+      height: 100px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--salford-green);
+      color: var(--white);
+      font-size: 54px;
+      font-weight: 900;
+    }
+
+    .complete-title {
+      margin: 34px 0 0;
+      font-size: clamp(58px, 7vw, 90px);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+      font-weight: 900;
+    }
+
+    .complete-copy {
+      max-width: 1080px;
+      margin: 22px 0 0;
+      color: var(--slate-600);
+      font-size: 28px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    .complete-actions {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 38px;
+    }
+
+    .complete-actions .nav-button { min-height: 90px; font-size: 23px; }
+    .blue { background: var(--salford-blue) !important; color: var(--white) !important; }
+    .navy { background: var(--salford-navy) !important; color: var(--white) !important; }
+    .red { background: var(--salford-red) !important; color: var(--white) !important; }
+
+    details {
+      margin-top: 30px;
+      border-radius: 24px;
+      background: var(--salford-grey);
+      padding: 24px;
+    }
+
+    summary {
+      cursor: pointer;
+      color: var(--slate-900);
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    pre {
+      max-height: 360px;
+      overflow: auto;
+      margin: 20px 0 0;
+      border-radius: 18px;
+      background: var(--slate-950);
+      color: white;
+      padding: 20px;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 1180px) {
+      .progress-wrap { display: none; }
+      .intro-navy { display: none; }
+      .intro-content { max-width: 100%; padding: 48px; }
+      .section-header { grid-template-columns: 1fr; }
+      .section-progress-panel { display: none; }
+      .choice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .rating-grid.four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .complete-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 760px) {
+      .topbar-inner { min-height: 76px; padding: 12px 16px; }
+      .brand-kicker { font-size: 12px; }
+      .brand-title { font-size: 18px; }
+      .app-shell { padding: 96px 14px 24px; }
+      .nav-pill { min-width: 52px; min-height: 52px; font-size: 17px; border-radius: 14px; }
+      .intro-card { min-height: auto; border-radius: 28px; }
+      .intro-content { min-height: auto; padding: 28px; }
+      .intro-small { font-size: 18px; letter-spacing: 0.1em; }
+      .intro-title { font-size: 54px; }
+      .intro-copy { font-size: 21px; }
+      .start-button { min-height: 86px; font-size: 26px; }
+      .section-header-main { padding: 28px; }
+      .section-title { font-size: 42px; }
+      .section-subtitle { font-size: 21px; }
+      .badge { min-height: 42px; font-size: 17px; }
+      .card { padding: 22px; border-radius: 26px; }
+      .question-title { font-size: 26px; }
+      .choice-grid, .rating-grid, .rating-grid.four { grid-template-columns: 1fr; }
+      .choice-button { min-height: 76px; font-size: 22px; }
+      .rating-label { font-size: 22px; }
+      .rating-button { font-size: 19px; }
+      .bottom-nav-inner { grid-template-columns: 1fr; }
+      .nav-button.primary { font-size: 26px; }
+      .complete-card { padding: 28px; border-radius: 28px; }
+      .complete-actions { grid-template-columns: 1fr; }
+      .text-final { min-height: 260px; font-size: 22px; }
+      .text-large { min-height: 150px; font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div>
+        <div class="brand-kicker">University of Salford</div>
+        <div class="brand-title">SPL Feedback questionnaire</div>
+      </div>
+      <div class="progress-wrap" aria-hidden="true">
+        <div class="progress-track"><div id="overallProgress" class="progress-fill"></div></div>
+        <div id="overallPercent" class="progress-percent">0%</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <nav id="sectionNav" class="section-nav" aria-label="Questionnaire sections"></nav>
+    <div id="app"></div>
+  </main>
+
+  <script>
+    const GOOGLE_SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxJ8YAwk6NFHkI4xVp7s8PT7uZpDHpqioc0XzfB6GjXOD91R9Jbsd0MPf4Y1UWuNaRK/exec";
+    const QUESTIONNAIRE_NAME = "SPL Feedback questionnaire";
+
+    const sections = [
+      {
+        id: "welcome",
+        number: "/",
+        navLabel: "Start",
+        title: "SPL Feedback questionnaire",
+        subtitle: "University of Salford | Simulated Practice Learning and digital portfolio",
+        type: "intro"
+      },
+      {
+        id: "about-you",
+        number: 1,
+        title: "About You",
+        subtitle: "Large tap buttons for quick selection.",
+        type: "choiceGroups",
+        questions: [
+          {
+            id: "1.1",
+            title: "Your Professional Field",
+            type: "single",
+            options: ["Adult Nursing", "Children & Young People (CYP)", "Mental Health Nursing", "Learning Disabilities", "Other"],
+            other: true
+          },
+          {
+            id: "1.2",
+            title: "Your Role in Practice",
+            type: "single",
+            options: ["Practice Supervisor", "Practice Assessor", "Clinical Educator", "Ward/Team Manager", "AHP / MDT Colleague", "Other"],
+            other: true
+          }
+        ]
+      },
+      {
+        id: "spl-priorities",
+        number: 2,
+        title: "Your Priorities for Simulated Practice Learning (SPL)",
+        subtitle: "Tap to vote: Very Important / Important / Not a Priority.",
+        type: "ratingGroups",
+        scale: ["Very Important", "Important", "Not a Priority"],
+        groups: [
+          {
+            id: "2.1",
+            title: "Clinical Skills & Safety",
+            items: [
+              "Deterioration recognition (ABCDE, NEWS2, PEWS)",
+              "Medicines safety & administration",
+              "Infection prevention & control",
+              "Aseptic technique",
+              "Physical health skills for MH students",
+              "Paediatric assessment skills"
+            ]
+          },
+          {
+            id: "2.2",
+            title: "Communication & Professional Behaviours",
+            items: [
+              "Escalation & SBAR",
+              "De-escalation (MH)",
+              "Trauma-informed communication",
+              "Family-centred communication (CYP)",
+              "MDT working",
+              "Handover & prioritisation"
+            ]
+          },
+          {
+            id: "2.3",
+            title: "Complex Care & Real World Scenarios",
+            items: [
+              "Safeguarding",
+              "End of life care",
+              "Long-term condition management",
+              "Mental health crisis presentations",
+              "Complex discharge planning",
+              "Leadership & delegation"
+            ]
+          }
+        ],
+        extra: {
+          id: "2.4",
+          title: "Additional SPL Needs",
+          placeholder: "Tap to add your own scenario..."
+        }
+      },
+      {
+        id: "supervisor-support",
+        number: 3,
+        title: "How SPL Can Support You as a Supervisor/Assessor",
+        subtitle: "Tap to vote: Strongly Agree / Agree / Neutral / Disagree.",
+        type: "mixed",
+        scale: ["Strongly Agree", "Agree", "Neutral", "Disagree"],
+        groups: [
+          {
+            id: "3.1",
+            title: "SPL should prepare students to…",
+            items: [
+              "Arrive on placement with baseline clinical skills",
+              "Demonstrate safe practice from day one",
+              "Communicate effectively with patients and families",
+              "Escalate concerns appropriately",
+              "Work safely within the MDT",
+              "Manage common clinical situations confidently"
+            ]
+          },
+          {
+            id: "3.2",
+            title: "SPL should provide evidence that helps you…",
+            items: [
+              "Understand student readiness",
+              "Tailor learning opportunities",
+              "Assess proficiencies more fairly",
+              "Identify areas needing support",
+              "Reduce duplication of teaching",
+              "Build confidence in sign-off decisions"
+            ]
+          }
+        ],
+        multi: {
+          id: "3.3",
+          title: "What SPL evidence would help you most?",
+          instruction: "Tap all that apply.",
+          options: [
+            "Facilitator feedback",
+            "Simulation performance summaries",
+            "Skills demonstrated (Annex A/B)",
+            "Communication & teamwork evidence",
+            "Video clips (optional)",
+            "Student reflection",
+            "Peer feedback",
+            "Scenario logs"
+          ]
+        }
+      },
+      {
+        id: "digital-portfolio-content",
+        number: 4,
+        title: "Digital Portfolio: What You Want to See (Beyond PARE)",
+        subtitle: "This section captures what PARE does not show. Tap to vote: Essential / Useful / Not Needed.",
+        type: "ratingGroups",
+        scale: ["Essential", "Useful", "Not Needed"],
+        groups: [
+          {
+            id: "4.1",
+            title: "Programme Wide Progress",
+            items: [
+              "Skills achieved across the whole programme",
+              "Proficiency mapping (NMC Platforms 1–7)",
+              "Annex A/B skills tracker",
+              "Academic milestones",
+              "Hours completed",
+              "Readiness indicators"
+            ]
+          },
+          {
+            id: "4.2",
+            title: "Simulation Evidence",
+            items: [
+              "Summary of scenarios completed",
+              "Skills demonstrated",
+              "Professional behaviours",
+              "Communication & teamwork",
+              "Deterioration recognition",
+              "Medicines safety",
+              "Reflection on learning"
+            ]
+          },
+          {
+            id: "4.3",
+            title: "Professional Behaviours Over Time",
+            items: ["Communication", "Teamwork", "Accountability", "Compassion", "Cultural competence", "Engagement & attendance"]
+          },
+          {
+            id: "4.4",
+            title: "Student Self Assessment",
+            items: ["Skills confidence ratings", "Areas of low confidence", "Goals for next placement", "Areas they want more exposure to"]
+          },
+          {
+            id: "4.5",
+            title: "Developmental Growth",
+            items: ["Strengths", "Challenges", "Growth narrative", "Progress between placements"]
+          },
+          {
+            id: "4.6",
+            title: "Cross Field Competence",
+            items: ["MH students’ physical health skills", "Adult students’ MH awareness", "CYP students’ safeguarding depth", "Transferable skills"]
+          }
+        ]
+      },
+      {
+        id: "portfolio-practice-support",
+        number: 5,
+        title: "How the Digital Portfolio Can Support You in Practice",
+        subtitle: "Tap to vote: Strongly Agree / Agree / Neutral / Disagree.",
+        type: "mixed",
+        scale: ["Strongly Agree", "Agree", "Neutral", "Disagree"],
+        groups: [
+          {
+            id: "5.1",
+            title: "The portfolio should help me…",
+            items: [
+              "Understand the student’s starting point",
+              "Plan learning opportunities",
+              "Identify gaps early",
+              "Support fair assessment",
+              "Reduce duplication of teaching",
+              "Track progress across the programme",
+              "See simulation + practice evidence together"
+            ]
+          }
+        ],
+        multi: {
+          id: "5.2",
+          title: "What portfolio features would help you most?",
+          instruction: "Tap all that apply.",
+          options: [
+            "Skills dashboard",
+            "Proficiency tracker",
+            "Simulation evidence",
+            "Professional behaviours log",
+            "Student goals",
+            "Action plans",
+            "Supervisor/assessor feedback hub",
+            "Employer-ready showcase"
+          ]
+        }
+      },
+      {
+        id: "curriculum-preferences",
+        number: 6,
+        title: "Your Preferences for the New Curriculum",
+        subtitle: "Tap to vote: High Priority / Medium Priority / Low Priority.",
+        type: "ratingGroups",
+        scale: ["High Priority", "Medium Priority", "Low Priority"],
+        groups: [
+          {
+            id: "6.1",
+            title: "Where should SPL be embedded?",
+            items: ["Academic modules", "Practice modules", "Assessment points", "Portfolio linked activities", "Interprofessional learning", "Field-specific blocks"]
+          },
+          {
+            id: "6.2",
+            title: "What should SPL focus on most?",
+            items: ["Safety & clinical competence", "Communication & teamwork", "Professional behaviours", "Leadership & delegation", "Complex care", "Field-specific needs"]
+          }
+        ]
+      },
+      {
+        id: "final-comments",
+        number: 7,
+        title: "Final Comments",
+        subtitle: "Large text box for free typing.",
+        type: "text",
+        prompt: "What else would you like to see in SPL or the digital portfolio to better support you as a supervisor or assessor?"
+      }
+    ];
+
+    let page = 0;
+    let responses = getInitialResponses();
+    let submitStatus = "idle";
+
+    function getInitialResponses() {
+      return {
+        choices: {},
+        otherText: {},
+        ratings: {},
+        multi: {},
+        extras: {},
+        comments: ""
+      };
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function countItems(section) {
+      if (section.type === "intro") return 0;
+      if (section.type === "choiceGroups") return section.questions.length;
+      if (section.type === "text") return 1;
+      let total = 0;
+      if (section.groups) total += section.groups.reduce((sum, group) => sum + group.items.length, 0);
+      if (section.multi) total += 1;
+      if (section.extra) total += 1;
+      return total;
+    }
+
+    function countAnswered(section) {
+      if (section.type === "intro") return 0;
+      if (section.type === "choiceGroups") {
+        return section.questions.filter((question) => responses.choices[question.id]).length;
+      }
+      if (section.type === "text") return responses.comments.trim().length > 0 ? 1 : 0;
+
+      let answered = 0;
+      section.groups?.forEach((group) => {
+        group.items.forEach((item) => {
+          if (responses.ratings[`${group.id}-${item}`]) answered += 1;
+        });
+      });
+      if (section.multi && (responses.multi[section.multi.id] || []).length > 0) answered += 1;
+      if (section.extra && (responses.extras[section.extra.id] || "").trim().length > 0) answered += 1;
+      return answered;
+    }
+
+    function overallTotals() {
+      const questionSections = sections.filter((section) => section.type !== "intro");
+      const total = questionSections.reduce((sum, section) => sum + countItems(section), 0);
+      const answered = questionSections.reduce((sum, section) => sum + countAnswered(section), 0);
+      return { total, answered, percent: total ? Math.round((answered / total) * 100) : 0 };
+    }
+
+    function buildSubmissionPayload() {
+      const flatAnswers = {};
+      const setAnswer = (label, value) => {
+        flatAnswers[label] = Array.isArray(value) ? value.join("; ") : value || "";
+      };
+
+      sections.forEach((section) => {
+        if (section.type === "choiceGroups") {
+          section.questions.forEach((question) => {
+            const selected = responses.choices[question.id] || "";
+            const value = selected === "Other" ? responses.otherText[question.id] || "Other" : selected;
+            setAnswer(`${question.id} ${question.title}`, value);
+          });
+        }
+
+        if (section.groups) {
+          section.groups.forEach((group) => {
+            group.items.forEach((item) => {
+              setAnswer(`${group.id} ${group.title} - ${item}`, responses.ratings[`${group.id}-${item}`] || "");
+            });
+          });
+        }
+
+        if (section.multi) {
+          setAnswer(`${section.multi.id} ${section.multi.title}`, responses.multi[section.multi.id] || []);
+        }
+
+        if (section.extra) {
+          setAnswer(`${section.extra.id} ${section.extra.title}`, responses.extras[section.extra.id] || "");
+        }
+
+        if (section.type === "text") {
+          setAnswer(`${section.number} ${section.title}`, responses.comments || "");
+        }
+      });
+
+      return {
+        questionnaire: QUESTIONNAIRE_NAME,
+        submittedAt: new Date().toISOString(),
+        flatAnswers,
+        rawResponses: responses
+      };
+    }
+
+    function updateOverallProgress() {
+      const totals = overallTotals();
+      document.getElementById("overallProgress").style.width = `${totals.percent}%`;
+      document.getElementById("overallPercent").textContent = `${totals.percent}%`;
+    }
+
+    function renderSectionNav() {
+      const nav = document.getElementById("sectionNav");
+      nav.innerHTML = sections.map((section, index) => {
+        const isComplete = section.type !== "intro" && countAnswered(section) === countItems(section);
+        const label = section.navLabel ?? section.number;
+        return `
+          <button class="nav-pill ${index === page ? "active" : ""} ${isComplete ? "complete" : ""}" onclick="goToPage(${index})" aria-label="Go to section ${escapeHtml(label)}">
+            ${escapeHtml(label)}
+          </button>
+        `;
+      }).join("");
+    }
+
+    function renderApp() {
+      updateOverallProgress();
+      renderSectionNav();
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+
+      const app = document.getElementById("app");
+      if (page >= sections.length) {
+        app.innerHTML = renderCompletionScreen();
+        submitResponses();
+        return;
+      }
+
+      const section = sections[page];
+      if (section.type === "intro") {
+        app.innerHTML = renderIntroPage();
+        return;
+      }
+
+      app.innerHTML = `
+        <div class="page-enter">
+          ${renderSectionHeader(section)}
+          ${renderSectionBody(section)}
+          ${renderBottomNav(section)}
+        </div>
+      `;
+    }
+
+    function renderIntroPage() {
+      return `
+        <section class="intro-card page-enter">
+          <div class="intro-navy" aria-hidden="true"></div>
+          <div class="intro-content">
+            <div>
+              <div style="margin-bottom: 44px;">
+                <div class="brand-kicker">University of Salford</div>
+                <div style="margin-top: 8px; color: var(--slate-600); font-size: 25px; font-weight: 800;">School of Health and Society</div>
+              </div>
+              <p class="intro-small">Simulated Practice Learning</p>
+              <h1 class="intro-title">SPL Feedback questionnaire</h1>
+              <p class="intro-copy">Please tap through each section and tell us what would help simulated practice learning and the digital portfolio better support supervisors and assessors.</p>
+            </div>
+            <button class="start-button" onclick="goToPage(1)">Start questionnaire <span aria-hidden="true">→</span></button>
+          </div>
+        </section>
+      `;
+    }
+
+    function renderSectionHeader(section) {
+      const answered = countAnswered(section);
+      const total = countItems(section);
+      const percent = total ? Math.round((answered / total) * 100) : 0;
+
+      return `
+        <header class="section-header">
+          <div class="section-header-main">
+            <div class="badges">
+              <span class="badge badge-red">${escapeHtml(section.number)}</span>
+              <span class="badge badge-grey">${answered} of ${total} answered</span>
+            </div>
+            <h1 class="section-title">${escapeHtml(section.title)}</h1>
+            <p class="section-subtitle">${escapeHtml(section.subtitle)}</p>
+          </div>
+          <div class="section-progress-panel" aria-hidden="true">
+            <div>
+              <div class="section-progress-number">${percent}%</div>
+              <div class="section-progress-label">section progress</div>
+            </div>
+          </div>
+        </header>
+      `;
+    }
+
+    function renderSectionBody(section) {
+      if (section.type === "choiceGroups") return renderChoiceGroups(section);
+      if (section.type === "ratingGroups" || section.type === "mixed") return renderRatingGroups(section);
+      if (section.type === "text") return renderTextPage(section);
+      return "";
+    }
+
+    function renderChoiceGroups(section) {
+      return section.questions.map((question) => `
+        <section class="card">
+          <h2 class="question-title">${escapeHtml(question.id)} ${escapeHtml(question.title)}</h2>
+          <div class="choice-grid">
+            ${question.options.map((option) => renderChoiceButton({
+              selected: responses.choices[question.id] === option,
+              label: option === "Other" ? "Other (tap to type)" : option,
+              onclick: `selectChoice('${question.id}', '${jsString(option)}')`
+            })).join("")}
+          </div>
+          ${question.other && responses.choices[question.id] === "Other" ? `
+            <input class="other-input" value="${escapeHtml(responses.otherText[question.id] || "")}" placeholder="Type your answer here..." oninput="setOtherText('${question.id}', this.value)" />
+          ` : ""}
+        </section>
+      `).join("");
+    }
+
+    function renderRatingGroups(section) {
+      let html = "";
+
+      section.groups?.forEach((group) => {
+        html += `
+          <section class="card">
+            <h2 class="question-title">${escapeHtml(group.id)} ${escapeHtml(group.title)}</h2>
+            ${group.items.map((item) => {
+              const key = `${group.id}-${item}`;
+              return `
+                <div class="rating-item">
+                  <div class="rating-label">${escapeHtml(item)}</div>
+                  <div class="rating-grid ${section.scale.length === 4 ? "four" : ""}">
+                    ${section.scale.map((value) => `
+                      <button class="rating-button ${responses.ratings[key] === value ? "selected" : ""}" onclick="setRating('${jsString(key)}', '${jsString(value)}')">
+                        ${escapeHtml(value)}
+                      </button>
+                    `).join("")}
+                  </div>
+                </div>
+              `;
+            }).join("")}
+          </section>
+        `;
+      });
+
+      if (section.multi) {
+        html += `
+          <section class="card">
+            <h2 class="question-title">${escapeHtml(section.multi.id)} ${escapeHtml(section.multi.title)}</h2>
+            <p class="question-note">${escapeHtml(section.multi.instruction)}</p>
+            <div class="choice-grid">
+              ${section.multi.options.map((option) => renderChoiceButton({
+                selected: (responses.multi[section.multi.id] || []).includes(option),
+                label: option,
+                onclick: `toggleMulti('${section.multi.id}', '${jsString(option)}')`
+              })).join("")}
+            </div>
+          </section>
+        `;
+      }
+
+      if (section.extra) {
+        html += `
+          <section class="card">
+            <h2 class="question-title">${escapeHtml(section.extra.id)} ${escapeHtml(section.extra.title)}</h2>
+            <textarea class="text-large" placeholder="${escapeHtml(section.extra.placeholder)}" oninput="setExtra('${section.extra.id}', this.value)">${escapeHtml(responses.extras[section.extra.id] || "")}</textarea>
+          </section>
+        `;
+      }
+
+      return html;
+    }
+
+    function renderChoiceButton({ selected, label, onclick }) {
+      return `
+        <button class="choice-button ${selected ? "selected" : ""}" onclick="${onclick}">
+          <span>${escapeHtml(label)}</span>
+          ${selected ? `<span class="check-mark" aria-hidden="true">✓</span>` : ""}
+        </button>
+      `;
+    }
+
+    function renderTextPage(section) {
+      return `
+        <section class="card">
+          <label class="question-title" for="finalComments">${escapeHtml(section.prompt)}</label>
+          <textarea id="finalComments" class="text-final" placeholder="Tap here to type final comments..." oninput="setComments(this.value)">${escapeHtml(responses.comments)}</textarea>
+        </section>
+      `;
+    }
+
+    function renderBottomNav(section) {
+      return `
+        <div class="bottom-nav">
+          <div class="bottom-nav-inner">
+            <button class="nav-button secondary" onclick="previousPage()">← Back</button>
+            <button class="nav-button primary ${page === sections.length - 1 ? "submit" : ""}" onclick="nextPage()">
+              ${page === sections.length - 1 ? "Submit" : "Next Page →"}
+            </button>
+            <button class="nav-button secondary" onclick="resetResponses()">Reset</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderCompletionScreen() {
+      const message = statusMessage();
+      return `
+        <section class="complete-card page-enter">
+          <div class="complete-icon">✓</div>
+          <h1 class="complete-title">Thank you</h1>
+          <p id="submitMessage" class="complete-copy">${escapeHtml(message)}</p>
+          <div class="complete-actions">
+            <button class="nav-button secondary" onclick="goToPage(${sections.length - 1})">Back to comments</button>
+            <button class="nav-button blue" onclick="submitResponses()">Send again</button>
+            <button class="nav-button navy" onclick="copyResponses()">Copy backup</button>
+            <button class="nav-button red" onclick="resetResponses()">Reset for next person</button>
+          </div>
+          <details>
+            <summary>Preview response data</summary>
+            <pre id="responsePreview">${escapeHtml(JSON.stringify(buildSubmissionPayload(), null, 2))}</pre>
+          </details>
+        </section>
+      `;
+    }
+
+    function statusMessage() {
+      if (submitStatus === "sending") return "The questionnaire is complete. Sending responses to Google Sheets...";
+      if (submitStatus === "sent") return "The questionnaire is complete. Responses have been sent to the Google Sheets endpoint.";
+      if (submitStatus === "error") return "The questionnaire is complete, but the responses could not be sent automatically. Please check the Apps Script deployment settings.";
+      return "The questionnaire is complete. The responses will be sent to Google Sheets.";
+    }
+
+    function updateSubmitMessage() {
+      const message = document.getElementById("submitMessage");
+      if (message) message.textContent = statusMessage();
+      const preview = document.getElementById("responsePreview");
+      if (preview) preview.textContent = JSON.stringify(buildSubmissionPayload(), null, 2);
+    }
+
+    function jsString(value) {
+      return String(value).replace(/\\/g, "\\\\").replace(/'/g, "\\'");
+    }
+
+    function goToPage(index) {
+      page = index;
+      renderApp();
+    }
+
+    function nextPage() {
+      page = Math.min(sections.length, page + 1);
+      renderApp();
+    }
+
+    function previousPage() {
+      page = Math.max(0, page - 1);
+      renderApp();
+    }
+
+    function resetResponses() {
+      responses = getInitialResponses();
+      submitStatus = "idle";
+      page = 0;
+      renderApp();
+    }
+
+    function selectChoice(questionId, option) {
+      responses.choices[questionId] = option;
+      if (option !== "Other") delete responses.otherText[questionId];
+      renderApp();
+    }
+
+    function setOtherText(questionId, value) {
+      responses.choices[questionId] = "Other";
+      responses.otherText[questionId] = value;
+      updateOverallProgress();
+      renderSectionNav();
+    }
+
+    function setRating(key, value) {
+      responses.ratings[key] = value;
+      renderApp();
+    }
+
+    function toggleMulti(multiId, option) {
+      const current = responses.multi[multiId] || [];
+      responses.multi[multiId] = current.includes(option)
+        ? current.filter((item) => item !== option)
+        : [...current, option];
+      renderApp();
+    }
+
+    function setExtra(extraId, value) {
+      responses.extras[extraId] = value;
+      updateOverallProgress();
+      renderSectionNav();
+    }
+
+    function setComments(value) {
+      responses.comments = value;
+      updateOverallProgress();
+      renderSectionNav();
+    }
+
+    async function submitResponses() {
+      if (submitStatus === "sending") return;
+      submitStatus = "sending";
+      updateSubmitMessage();
+
+      try {
+        await fetch(GOOGLE_SHEETS_WEB_APP_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+          body: JSON.stringify(buildSubmissionPayload())
+        });
+        submitStatus = "sent";
+      } catch (error) {
+        submitStatus = "error";
+      }
+
+      updateSubmitMessage();
+    }
+
+    async function copyResponses() {
+      const text = JSON.stringify(buildSubmissionPayload(), null, 2);
+      try {
+        await navigator.clipboard.writeText(text);
+        alert("Response backup copied.");
+      } catch (error) {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+        alert("Response backup copied.");
+      }
+    }
+
+    renderApp();
+  </script>
+</body>
+</html>
