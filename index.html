@@ -1,94 +1,1531 @@
 <!doctype html>
 <html lang="en-GB">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SPL Feedback questionnaire</title>
   <style>
     :root {
-      --red:#d71920; --navy:#013149; --blue:#006891; --green:#2eb895; --yellow:#fece17; --grey:#f8f8f8;
-      --ink:#0f172a; --muted:#64748b; --line:#e2e8f0; --page:#f1f5f9; --white:#fff;
-      --shadow:0 22px 45px rgba(15,23,42,.14); --soft:0 10px 24px rgba(15,23,42,.1);
+      --salford-red: #d71920;
+      --salford-navy: #013149;
+      --salford-blue: #006891;
+      --salford-green: #2eb895;
+      --salford-yellow: #fece17;
+      --salford-grey: #f8f8f8;
+      --ink: #0f172a;
+      --muted: #64748b;
+      --line: #e2e8f0;
+      --page: #f1f5f9;
+      --white: #ffffff;
+      --disabled: #e5e7eb;
+      --disabled-text: #6b7280;
     }
-    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--page);color:var(--ink);font-family:"Replica Pro",Arial,Helvetica,sans-serif} button,textarea,input{font:inherit} button{cursor:pointer;border:0}
-    .topbar{background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);box-shadow:var(--soft)}
-    .topbar-inner{width:min(1700px,calc(100% - 40px));margin:0 auto;padding:16px 0;display:flex;align-items:center;justify-content:space-between;gap:22px}.brand-kicker{color:var(--red);font-weight:900;text-transform:uppercase;letter-spacing:.2em;font-size:clamp(.85rem,1.2vw,1.2rem)}.brand-title{font-weight:900;font-size:clamp(1.15rem,1.8vw,1.75rem);margin-top:2px}.progress-wrap{display:flex;align-items:center;gap:14px;min-width:320px}.progress-track{height:16px;flex:1;background:#e2e8f0;border-radius:999px;overflow:hidden}.progress-fill{height:100%;background:var(--red);border-radius:999px;transition:width .25s ease}.progress-number{font-size:1.15rem;font-weight:900;min-width:52px;text-align:right}
-    .container{width:min(1700px,calc(100% - 32px));margin:0 auto;padding:26px 0 60px}.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}.tab{min-height:58px;min-width:64px;border:2px solid var(--line);border-radius:18px;background:#fff;font-weight:900;font-size:1.4rem;padding:0 18px}.tab.active{background:var(--red);color:#fff;border-color:var(--red);box-shadow:var(--soft)}.tab.done{background:var(--navy);color:#fff;border-color:var(--navy)}
-    .screen{display:none;animation:fade .22s ease}.screen.active{display:block}@keyframes fade{from{opacity:0;transform:translateX(22px)}to{opacity:1;transform:translateX(0)}}
-    .card{background:#fff;border:1px solid var(--line);border-radius:34px;box-shadow:var(--shadow);overflow:hidden}.intro-card{min-height:calc(100vh - 180px);position:relative}.intro-blue{position:absolute;right:0;top:0;bottom:0;width:22%;background:var(--navy)}.intro-content{position:relative;z-index:1;min-height:calc(100vh - 180px);display:flex;flex-direction:column;justify-content:space-between;padding:clamp(34px,5vw,82px)}
-    .kicker{color:var(--navy);font-size:clamp(1.3rem,2vw,2rem);font-weight:900;text-transform:uppercase;letter-spacing:.16em;margin:0 0 14px}.h1{font-size:clamp(4rem,8vw,8.2rem);line-height:.95;margin:0;font-weight:900;letter-spacing:-.05em;max-width:1050px}.intro-copy{font-size:clamp(1.5rem,2.3vw,2.3rem);line-height:1.35;color:var(--muted);font-weight:700;max-width:980px;margin:34px 0 0}.header{display:grid;grid-template-columns:1fr 280px;background:#fff}.header-main{padding:34px clamp(28px,4vw,58px)}.pill{display:inline-flex;align-items:center;justify-content:center;background:var(--red);color:#fff;border-radius:999px;font-size:2rem;font-weight:900;padding:10px 22px;margin-bottom:20px}.title{font-size:clamp(3rem,5vw,5.8rem);line-height:.98;margin:0;font-weight:900;letter-spacing:-.04em}.subtitle{font-size:clamp(1.4rem,2vw,2rem);line-height:1.35;color:var(--muted);font-weight:700;max-width:1000px}.header-side{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:30px}.header-side .big{font-size:4rem;font-weight:900}.header-side .small{font-size:1.2rem;font-weight:800;opacity:.9}
-    .body{padding:clamp(24px,3.5vw,50px)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}.tile{min-height:110px;border:2px solid var(--line);border-radius:26px;background:#fff;color:var(--ink);padding:24px;text-align:left;font-size:clamp(1.35rem,2vw,2rem);font-weight:900;box-shadow:0 5px 12px rgba(15,23,42,.06);transition:transform .15s ease,background .15s ease,border-color .15s ease}.tile:hover{transform:translateY(-2px);border-color:#fecaca;background:#fff5f5}.tile.selected{background:var(--red);border-color:var(--red);color:#fff;box-shadow:var(--soft)}.tile.disabled{background:#e5e7eb;color:#9ca3af;border-color:#d1d5db;box-shadow:none;cursor:not-allowed;transform:none}.tile .meta{display:block;font-size:1.1rem;line-height:1.35;font-weight:800;opacity:.86;margin-top:10px}.other-input{display:none;margin-top:20px;width:100%;min-height:82px;border:2px solid var(--line);border-radius:24px;background:#f8fafc;padding:18px 22px;font-size:1.8rem;font-weight:800;outline:none}.other-input.visible{display:block}.status{margin:0 0 24px;font-size:clamp(1.3rem,1.8vw,1.8rem);font-weight:900;color:var(--navy)}.notice{margin-top:18px;border-radius:22px;background:#fff7ed;border:2px solid #fed7aa;color:#9a3412;padding:18px 22px;font-size:1.35rem;font-weight:900;display:none}.notice.visible{display:block}
-    .nav{margin-top:28px;background:#fff;border:1px solid var(--line);border-radius:30px;box-shadow:var(--soft);padding:18px;display:grid;grid-template-columns:1fr 2fr 1fr;gap:14px}.nav button{min-height:86px;border-radius:22px;font-size:clamp(1.35rem,2vw,2rem);font-weight:900}.back,.reset{background:#f8fafc;color:var(--ink)}.next,.start{background:var(--red);color:#fff}.finish{background:var(--green);color:#fff}.back:disabled{opacity:.35;cursor:not-allowed}
-    textarea{width:100%;min-height:380px;border:2px solid var(--line);border-radius:30px;background:#f8fafc;padding:26px;font-size:clamp(1.5rem,2.2vw,2.2rem);font-weight:700;line-height:1.35;outline:none}.question-prompt{font-size:clamp(1.8rem,2.8vw,3rem);font-weight:900;line-height:1.15;margin:0 0 24px}.submit-status{font-size:clamp(1.4rem,2vw,2rem);font-weight:800;color:var(--muted);line-height:1.35;max-width:950px}.card-stack{display:grid;place-items:center;min-height:520px}.swipe-card{width:min(760px,100%);min-height:360px;background:#fff;border:3px solid var(--line);border-radius:38px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;text-align:center;padding:40px;touch-action:none;user-select:none}.swipe-card h2{font-size:clamp(2.7rem,5vw,5rem);line-height:1;margin:0;font-weight:900}.swipe-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}.swipe-actions button{min-height:90px;border-radius:24px;font-size:clamp(1.2rem,1.8vw,1.8rem);font-weight:900;color:#fff}.include{background:var(--green)}.later{background:var(--blue)}.notneeded{background:var(--navy)}.swipe-progress{text-align:center;margin-top:16px;font-size:1.4rem;font-weight:900;color:var(--muted)}
-    @media(max-width:900px){.progress-wrap{display:none}.header{grid-template-columns:1fr}.header-side{display:none}.intro-blue{display:none}.nav{grid-template-columns:1fr}.tile{min-height:92px}.topbar-inner{width:min(100% - 24px,1700px)}.container{width:min(100% - 24px,1700px)}.h1{font-size:clamp(3.4rem,15vw,6rem)}.intro-card,.intro-content{min-height:calc(100vh - 145px)}}
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--page);
+      color: var(--ink);
+      font-family: "Replica Pro", Arial, Helvetica, sans-serif;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .app-shell {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 28px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 22px 26px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: 0 16px 45px rgba(15, 23, 42, 0.08);
+      margin-bottom: 22px;
+    }
+
+    .brand-kicker {
+      color: var(--salford-red);
+      font-weight: 900;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-size: clamp(0.85rem, 1vw, 1.15rem);
+    }
+
+    .brand-title {
+      font-weight: 900;
+      font-size: clamp(1.2rem, 2vw, 1.8rem);
+      margin-top: 4px;
+    }
+
+    .progress-wrap {
+      min-width: min(460px, 42vw);
+    }
+
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 14px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--salford-red);
+      border-radius: 999px;
+      transition: width 180ms ease;
+    }
+
+    .nav-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 22px;
+    }
+
+    .nav-pill {
+      min-height: 52px;
+      min-width: 58px;
+      border-radius: 18px;
+      border: 2px solid var(--line);
+      background: var(--white);
+      color: var(--ink);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      font-weight: 900;
+      font-size: 1.2rem;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+    }
+
+    .nav-pill.active {
+      background: var(--salford-red);
+      border-color: var(--salford-red);
+      color: white;
+    }
+
+    .nav-pill.complete {
+      background: var(--salford-navy);
+      border-color: var(--salford-navy);
+      color: white;
+    }
+
+    .screen {
+      background: var(--white);
+      border-radius: 36px;
+      border: 1px solid var(--line);
+      box-shadow: 0 22px 60px rgba(15, 23, 42, 0.09);
+      overflow: hidden;
+    }
+
+    .screen-inner {
+      padding: clamp(28px, 5vw, 72px);
+    }
+
+    .welcome-screen {
+      position: relative;
+      min-height: calc(100vh - 190px);
+      overflow: hidden;
+    }
+
+    .welcome-side {
+      position: absolute;
+      inset: 0 0 0 auto;
+      width: 22%;
+      background: var(--salford-navy);
+      pointer-events: none;
+    }
+
+    .welcome-content {
+      position: relative;
+      z-index: 1;
+      min-height: calc(100vh - 190px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      max-width: 1080px;
+    }
+
+    .school-line {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: clamp(1rem, 1.6vw, 1.45rem);
+      font-weight: 800;
+    }
+
+    .eyebrow {
+      color: var(--salford-navy);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-weight: 900;
+      font-size: clamp(1rem, 1.8vw, 1.55rem);
+      margin: 54px 0 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(3.4rem, 8vw, 8.5rem);
+      line-height: 0.94;
+      letter-spacing: -0.06em;
+      font-weight: 900;
+      max-width: 980px;
+    }
+
+    .welcome-copy {
+      margin: 30px 0 0;
+      max-width: 850px;
+      color: var(--muted);
+      font-size: clamp(1.45rem, 2.4vw, 2.3rem);
+      line-height: 1.24;
+      font-weight: 750;
+    }
+
+    .header-card {
+      display: grid;
+      grid-template-columns: 1fr minmax(220px, 280px);
+      background: var(--white);
+      border-radius: 34px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: 0 16px 45px rgba(15, 23, 42, 0.07);
+      margin-bottom: 26px;
+    }
+
+    .header-main {
+      padding: clamp(26px, 4vw, 46px);
+    }
+
+    .page-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 70px;
+      min-height: 58px;
+      padding: 0 20px;
+      border-radius: 999px;
+      background: var(--salford-red);
+      color: white;
+      font-size: 1.75rem;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .screen-title {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(2.3rem, 5vw, 5rem);
+      line-height: 0.96;
+      letter-spacing: -0.045em;
+      font-weight: 900;
+    }
+
+    .screen-subtitle {
+      margin: 18px 0 0;
+      max-width: 1050px;
+      color: var(--muted);
+      font-size: clamp(1.2rem, 2vw, 2rem);
+      line-height: 1.25;
+      font-weight: 800;
+    }
+
+    .header-progress {
+      background: var(--salford-navy);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 28px;
+    }
+
+    .header-progress-number {
+      font-size: clamp(3rem, 5vw, 5rem);
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .header-progress-label {
+      margin-top: 6px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      opacity: 0.88;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(285px, 1fr));
+      gap: 18px;
+    }
+
+    .options-grid.two {
+      grid-template-columns: repeat(auto-fit, minmax(430px, 1fr));
+    }
+
+    .tile {
+      appearance: none;
+      min-height: 108px;
+      border: 3px solid var(--line);
+      border-radius: 26px;
+      background: var(--white);
+      color: var(--ink);
+      padding: 22px 24px;
+      text-align: left;
+      font-size: clamp(1.25rem, 2vw, 2rem);
+      font-weight: 900;
+      line-height: 1.08;
+      cursor: pointer;
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+      transition: background 120ms ease, border 120ms ease, color 120ms ease, opacity 120ms ease, transform 120ms ease;
+    }
+
+    .tile:hover {
+      transform: translateY(-1px);
+      border-color: rgba(215, 25, 32, 0.42);
+      background: #fff5f5;
+    }
+
+    .tile.selected {
+      background: var(--salford-red);
+      border-color: var(--salford-red);
+      color: white;
+      box-shadow: 0 18px 36px rgba(215, 25, 32, 0.22);
+    }
+
+    .tile.dimmed {
+      background: var(--disabled);
+      border-color: var(--disabled);
+      color: var(--disabled-text);
+      box-shadow: none;
+    }
+
+    .tile.locked {
+      cursor: not-allowed;
+    }
+
+    .tile .small {
+      display: block;
+      margin-top: 12px;
+      font-size: clamp(1rem, 1.25vw, 1.25rem);
+      line-height: 1.25;
+      font-weight: 800;
+      opacity: 0.88;
+    }
+
+    .other-input,
+    .free-text {
+      width: 100%;
+      margin-top: 22px;
+      min-height: 86px;
+      border-radius: 24px;
+      border: 3px solid var(--line);
+      background: var(--salford-grey);
+      padding: 18px 22px;
+      font-size: clamp(1.3rem, 2vw, 2rem);
+      font-weight: 800;
+      color: var(--ink);
+      outline: none;
+    }
+
+    .free-text {
+      min-height: 320px;
+      resize: vertical;
+      line-height: 1.3;
+    }
+
+    .other-input:focus,
+    .free-text:focus {
+      border-color: var(--salford-red);
+      background: white;
+    }
+
+    .hint-row {
+      margin: 0 0 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      color: var(--muted);
+      font-size: clamp(1.1rem, 1.6vw, 1.55rem);
+      font-weight: 900;
+    }
+
+    .counter-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      border-radius: 999px;
+      background: var(--salford-navy);
+      color: white;
+      padding: 0 18px;
+      font-weight: 900;
+    }
+
+    .message {
+      margin-top: 20px;
+      padding: 18px 20px;
+      border-radius: 20px;
+      background: #fff7ed;
+      color: #9a3412;
+      border: 2px solid #fed7aa;
+      font-size: 1.2rem;
+      font-weight: 850;
+    }
+
+    .swipe-layout {
+      display: grid;
+      grid-template-columns: minmax(320px, 1fr) minmax(320px, 1fr);
+      gap: 26px;
+      align-items: start;
+    }
+
+    .swipe-stage {
+      min-height: 420px;
+      border-radius: 32px;
+      background: var(--salford-grey);
+      border: 3px dashed #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      overflow: hidden;
+    }
+
+    .swipe-card {
+      width: min(100%, 560px);
+      min-height: 320px;
+      border-radius: 34px;
+      background: white;
+      border: 3px solid var(--line);
+      box-shadow: 0 30px 70px rgba(15, 23, 42, 0.18);
+      padding: 34px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+      will-change: transform;
+    }
+
+    .swipe-card:active {
+      cursor: grabbing;
+    }
+
+    .swipe-label {
+      color: var(--salford-red);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 1.05rem;
+      font-weight: 900;
+    }
+
+    .swipe-name {
+      margin-top: 18px;
+      font-size: clamp(2rem, 4vw, 4rem);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      font-weight: 900;
+    }
+
+    .swipe-instructions {
+      color: var(--muted);
+      font-weight: 850;
+      font-size: 1.2rem;
+      line-height: 1.35;
+    }
+
+    .swipe-buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .mini-action {
+      min-height: 80px;
+      border: 0;
+      border-radius: 22px;
+      color: white;
+      padding: 12px 14px;
+      font-size: clamp(1rem, 1.5vw, 1.35rem);
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .mini-action.include {
+      background: var(--salford-red);
+    }
+
+    .mini-action.not-needed {
+      background: #6b7280;
+    }
+
+    .mini-action.later {
+      background: var(--salford-blue);
+    }
+
+    .innovation-summary {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .innovation-chip {
+      min-height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      border-radius: 20px;
+      border: 2px solid var(--line);
+      background: white;
+      padding: 14px 16px;
+      font-size: clamp(1rem, 1.35vw, 1.25rem);
+      font-weight: 900;
+      color: var(--ink);
+    }
+
+    .innovation-chip.include {
+      background: var(--salford-red);
+      border-color: var(--salford-red);
+      color: white;
+    }
+
+    .innovation-chip.not-needed {
+      background: var(--disabled);
+      border-color: var(--disabled);
+      color: var(--disabled-text);
+    }
+
+    .innovation-chip.later {
+      background: var(--salford-blue);
+      border-color: var(--salford-blue);
+      color: white;
+    }
+
+    .chip-status {
+      white-space: nowrap;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    .bottom-nav {
+      margin-top: 30px;
+      padding: 18px;
+      background: var(--page);
+      border-radius: 30px;
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      gap: 16px;
+    }
+
+    .nav-button {
+      min-height: 92px;
+      border: 0;
+      border-radius: 24px;
+      padding: 18px 24px;
+      font-size: clamp(1.25rem, 2vw, 2rem);
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    .nav-button.back,
+    .nav-button.reset {
+      background: white;
+      color: var(--ink);
+    }
+
+    .nav-button.primary {
+      background: var(--salford-red);
+      color: white;
+    }
+
+    .nav-button.primary:disabled,
+    .nav-button.back:disabled {
+      background: var(--disabled);
+      color: var(--disabled-text);
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .submitted-box {
+      margin-top: 26px;
+      border-radius: 28px;
+      background: #ecfdf5;
+      border: 3px solid #bbf7d0;
+      padding: 24px;
+      color: #166534;
+      font-size: clamp(1.3rem, 2vw, 2rem);
+      font-weight: 900;
+    }
+
+    @media (max-width: 920px) {
+      .app-shell {
+        padding: 14px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+        border-radius: 22px;
+      }
+
+      .progress-wrap {
+        min-width: 100%;
+      }
+
+      .welcome-side {
+        display: none;
+      }
+
+      .welcome-screen,
+      .welcome-content {
+        min-height: auto;
+      }
+
+      .header-card {
+        grid-template-columns: 1fr;
+      }
+
+      .header-progress {
+        min-height: 130px;
+      }
+
+      .options-grid,
+      .options-grid.two {
+        grid-template-columns: 1fr;
+      }
+
+      .swipe-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .swipe-buttons {
+        grid-template-columns: 1fr;
+      }
+
+      .bottom-nav {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: clamp(3rem, 14vw, 5rem);
+      }
+    }
   </style>
 </head>
+
 <body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <div><div class="brand-kicker">University of Salford</div><div class="brand-title">SPL Feedback questionnaire</div></div>
-      <div class="progress-wrap"><div class="progress-track"><div id="progressFill" class="progress-fill"></div></div><div id="progressNumber" class="progress-number">0%</div></div>
-    </div>
-  </header>
-  <main class="container">
-    <div id="tabs" class="tabs"></div>
-    <div id="app"></div>
-  </main>
-<script>
-const GOOGLE_SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxJ8YAwk6NFHkI4xVp7s8PT7uZpDHpqioc0XzfB6GjXOD91R9Jbsd0MPf4Y1UWuNaRK/exec";
-const screens = [
- {id:'start',label:'Start',type:'start',title:'Welcome!',copy:'We’re gathering your views to shape the future of Simulated Practice Learning (SPL), the digital portfolio, and communication between practice and the university.\n\nThis will take 3–5 minutes.\n\nTap to begin.'},
- {id:'field',label:'1',type:'single',section:'Your Role & Field',title:'Select your field',subtitle:'Tap one.',key:'field',options:['Adult','CYP','Mental Health','Learning Disabilities','Other'],other:true},
- {id:'role',label:'2',type:'single',section:'Your Role & Field',title:'Select your role',subtitle:'Tap one.',key:'role',options:['Practice Supervisor','Practice Assessor','Clinical Educator','Ward/Team Manager','AHP / MDT colleague','Other'],other:true},
- {id:'splTop3',label:'3',type:'multiLimit',section:'Top SPL Priorities — Forced Choice',title:'Choose your TOP 3 SPL priorities',subtitle:'You must pick three only. Tiles grey out after three selections.',key:'topSplPriorities',limit:3,options:['Deterioration recognition','Medicines safety','Communication & escalation','Trauma-informed practice','Safeguarding','MDT working','Paediatric assessment (CYP only)','MH crisis & de-escalation (MH only)','End-of-life care','Leadership & delegation','Complex discharge','Physical health skills for MH students']},
- {id:'structure',label:'4',type:'singleCards',section:'Simulation Structure Preferences',title:'Choose ONE model you prefer',subtitle:'Forced choice. Tap one large tile.',key:'simulationStructure',options:[{title:'Scaffolded model',desc:'Year 1 basics → Year 2 complex care → Year 3 leadership & transition to RN'},{title:'Flexible model',desc:'Any proficiency can be taught at any time, responsive to practice needs'},{title:'Hybrid model',desc:'Core scaffold + flexible elements'}]},
- {id:'logistics',label:'5',type:'multiLimit',section:'Simulation Logistics — Quick Priorities',title:'Pick your TOP 2 preferences',subtitle:'You must pick two only.',key:'logisticsPreferences',limit:2,options:['SPL before placements','SPL embedded in modules','Field-specific SPL blocks','Mixed-field simulation','Interprofessional simulation','Distributed sessions across the year','Blocked SPL weeks']},
- {id:'innovation',label:'6',type:'swipe',section:'New Areas of Simulation — Swipe Cards',title:'Swipe to rate each innovation',subtitle:'Swipe right = Include. Swipe left = Not needed. Swipe up = Explore later.',key:'innovationRatings',cards:['Virtual wards','Tele-health consultations','Remote monitoring','Community/home-based simulation','Digital triage','AI-supported decision-making','Family-centred tele-health (CYP)','Remote MH assessments (MH)']},
- {id:'support',label:'7',type:'multiLimit',section:'How SPL Can Support Supervisors & Assessors',title:'Choose your TOP 3 ways SPL should support you',subtitle:'Three only.',key:'supportWays',limit:3,options:['Prepare students with baseline skills','Improve communication & escalation','Build confidence before placement','Reduce teaching duplication','Provide evidence for assessment','Highlight areas needing support','Improve professionalism','Strengthen MDT readiness']},
- {id:'portfolio',label:'8',type:'multiLimit',section:'Digital Portfolio — What PARE Doesn’t Show',title:'Choose your TOP 4 items you want in the digital portfolio',subtitle:'Four only.',key:'portfolioItems',limit:4,options:['Simulation performance summaries','Skills tracker (Annex A/B)','Professional behaviours over time','Student confidence ratings','Growth narrative','Academic milestones','Cross-field competence','Readiness indicators','Student goals for next placement','Facilitator feedback','Video evidence (optional)']},
- {id:'communication',label:'9',type:'single',section:'Communication Between Practice & University',title:'Choose your preferred communication method',subtitle:'One only.',key:'communicationMethod',options:['Portfolio dashboard','Simulation → practice handover summary','Email updates','Shared digital space','Termly practice–simulation meetings','Alerts for concerns']},
- {id:'arrival',label:'10',type:'multiLimit',section:'Communication Between Practice & University',title:'Choose your TOP 2 items you want to know BEFORE a student arrives',subtitle:'Two only.',key:'beforeStudentArrives',limit:2,options:['Skills achieved','Areas of low confidence','Simulation performance','Professional behaviours','Academic progress','Readiness indicators']},
- {id:'finalInput',label:'11',type:'text',section:'Final Input',title:'One final question',subtitle:'Optional typing.',key:'finalComment',prompt:'What else would help you support students more effectively?'},
- {id:'thanks',label:'Done',type:'thanks',title:'Thank you for your feedback.',copy:'Your input directly shapes the new curriculum, SPL design, and digital portfolio.\n\nTap to finish.'}
-];
-let page = 0;
-let touchStart = null;
-const responses = JSON.parse(localStorage.getItem('splFeedbackResponses') || '{}');
-function save(){localStorage.setItem('splFeedbackResponses',JSON.stringify(responses));}
-function scrollTop(){window.scrollTo({top:0,left:0,behavior:'smooth'});}
-function selectedArray(key){if(!Array.isArray(responses[key])) responses[key]=[]; return responses[key];}
-function isComplete(i){const s=screens[i]; if(s.type==='start'||s.type==='text'||s.type==='thanks') return true; if(s.type==='single'||s.type==='singleCards') return !!responses[s.key]; if(s.type==='multiLimit') return selectedArray(s.key).length===s.limit; if(s.type==='swipe') return s.cards.every(c=>responses[s.key]&&responses[s.key][c]); return false;}
-function progress(){const required=screens.filter(s=>!['start','text','thanks'].includes(s.type)); const done=required.filter(s=>isComplete(screens.indexOf(s))).length; return Math.round(done/required.length*100);}
-function renderTabs(){document.getElementById('tabs').innerHTML=screens.map((s,i)=>`<button class="tab ${i===page?'active':''} ${isComplete(i)&&i!==page?'done':''}" onclick="go(${i})">${s.label}</button>`).join('');}
-function shell(s,body){return `<section class="screen active"><div class="card"><div class="header"><div class="header-main"><div class="pill">${s.label}</div><h1 class="title">${s.title}</h1><p class="subtitle">${s.subtitle||s.section||''}</p></div><div class="header-side"><div><div class="big">${s.label}</div><div class="small">section</div></div></div></div><div class="body">${body}</div></div>${nav()}</section>`;}
-function nav(){const lastQuestion=page===screens.length-2; return `<div class="nav"><button class="back" ${page===0?'disabled':''} onclick="back()">Back</button><button class="${lastQuestion?'finish':'next'}" onclick="next()">${lastQuestion?'Submit':'Next page'}</button><button class="reset" onclick="resetAll()">Reset</button></div>`;}
-function startScreen(s){return `<section class="screen active"><div class="card intro-card"><div class="intro-blue"></div><div class="intro-content"><div><div class="brand-kicker">University of Salford</div><p class="kicker">Simulated Practice Learning</p><h1 class="h1">${s.title}</h1><p class="intro-copy">${s.copy.replaceAll('\n','<br>')}</p></div><button class="start" style="min-height:120px;border-radius:28px;font-size:clamp(2rem,4vw,4rem);font-weight:900;max-width:900px;" onclick="next()">Start questionnaire</button></div></div></section>`;}
-function tile(label,selected,disabled,onclick,desc=''){return `<button class="tile ${selected?'selected':''} ${disabled&&!selected?'disabled':''}" ${disabled&&!selected?'disabled':''} onclick="${onclick}">${label}${desc?`<span class="meta">${desc}</span>`:''}</button>`;}
-function singleScreen(s){let body=`<p class="status">Tap one option.</p><div class="grid">`; body+=s.options.map(o=>tile(o,responses[s.key]===o,false,`chooseSingle('${s.key}', '${escapeJs(o)}')`)).join(''); body+=`</div>`; if(s.other){body+=`<input class="other-input ${responses[s.key]==='Other'?'visible':''}" id="other_${s.key}" placeholder="Type your answer here..." value="${escapeHtml(responses[s.key+'_other']||'')}" oninput="setOther('${s.key}',this.value)">`;} body+=`<div id="notice" class="notice"></div>`; return shell(s,body);}
-function singleCardsScreen(s){let body=`<p class="status">Tap one model.</p><div class="grid">`; body+=s.options.map(o=>tile(o.title,responses[s.key]===o.title,false,`chooseSingle('${s.key}', '${escapeJs(o.title)}')`,o.desc)).join(''); body+=`</div><div id="notice" class="notice"></div>`; return shell(s,body);}
-function multiScreen(s){const arr=selectedArray(s.key); const full=arr.length>=s.limit; let body=`<p class="status">${arr.length} of ${s.limit} selected.</p><div class="grid">`; body+=s.options.map(o=>tile(o,arr.includes(o),full&&!arr.includes(o),`toggleMulti('${s.key}', '${escapeJs(o)}', ${s.limit})`)).join(''); body+=`</div><div id="notice" class="notice"></div>`; return shell(s,body);}
-function swipeScreen(s){if(!responses[s.key]) responses[s.key]={}; const idx=s.cards.findIndex(c=>!responses[s.key][c]); const done=idx===-1; let body=''; if(done){body=`<p class="status">All innovation cards have been rated.</p><div class="grid">${s.cards.map(c=>tile(c+': '+responses[s.key][c],true,false,'void(0)')).join('')}</div>`;} else {const card=s.cards[idx]; body=`<p class="status">Card ${idx+1} of ${s.cards.length}</p><div class="card-stack"><div id="swipeCard" class="swipe-card" onpointerdown="pointerDown(event)" onpointerup="pointerUp(event, '${escapeJs(s.key)}', '${escapeJs(card)}')"><h2>${card}</h2></div></div><div class="swipe-actions"><button class="notneeded" onclick="rateCard('${s.key}','${escapeJs(card)}','Not needed')">← Not needed</button><button class="later" onclick="rateCard('${s.key}','${escapeJs(card)}','Explore later')">↑ Explore later</button><button class="include" onclick="rateCard('${s.key}','${escapeJs(card)}','Include')">Include →</button></div><div class="swipe-progress">Swipe or tap a rating.</div>`;} body+=`<div id="notice" class="notice"></div>`; return shell(s,body);}
-function textScreen(s){return shell(s,`<p class="question-prompt">${s.prompt}</p><textarea id="finalText" placeholder="Type here if you would like to add anything..." oninput="responses['${s.key}']=this.value;save()">${escapeHtml(responses[s.key]||'')}</textarea>`);}
-function thanksScreen(s){const status=responses._submitStatus || 'Submitting your response...'; return `<section class="screen active"><div class="card intro-card"><div class="intro-blue"></div><div class="intro-content"><div><div class="brand-kicker">University of Salford</div><h1 class="h1">${s.title}</h1><p class="intro-copy">${s.copy.replaceAll('\n','<br>')}</p><p class="submit-status" id="submitStatus">${status}</p></div><button class="finish" style="min-height:120px;border-radius:28px;font-size:clamp(2rem,4vw,4rem);font-weight:900;max-width:900px;" onclick="finish()">Finish</button></div></div></section>`;}
-function render(){renderTabs(); const s=screens[page]; let html=''; if(s.type==='start') html=startScreen(s); if(s.type==='single') html=singleScreen(s); if(s.type==='singleCards') html=singleCardsScreen(s); if(s.type==='multiLimit') html=multiScreen(s); if(s.type==='swipe') html=swipeScreen(s); if(s.type==='text') html=textScreen(s); if(s.type==='thanks') html=thanksScreen(s); document.getElementById('app').innerHTML=html; const p=progress(); document.getElementById('progressFill').style.width=p+'%'; document.getElementById('progressNumber').textContent=p+'%'; save();}
-function go(i){page=i; render(); scrollTop();}
-function back(){if(page>0)go(page-1);}
-function next(){const s=screens[page]; if(s.type==='single'||s.type==='singleCards'){if(!responses[s.key]) return showNotice('Please select one option before moving on.'); if(responses[s.key]==='Other'&&!String(responses[s.key+'_other']||'').trim()) return showNotice('Please type your “Other” response before moving on.');}
- if(s.type==='multiLimit'){const arr=selectedArray(s.key); if(arr.length!==s.limit) return showNotice(`Please select exactly ${s.limit} option${s.limit>1?'s':''} before moving on.`);} if(s.type==='swipe'&&!isComplete(page)) return showNotice('Please rate every card before moving on.'); if(page===screens.length-2){submitResponses();} go(Math.min(page+1,screens.length-1));}
-function chooseSingle(key,value){responses[key]=value; if(value!=='Other') delete responses[key+'_other']; save(); render();}
-function setOther(key,value){responses[key]='Other'; responses[key+'_other']=value; save();}
-function toggleMulti(key,value,limit){const arr=selectedArray(key); const i=arr.indexOf(value); if(i>=0) arr.splice(i,1); else if(arr.length<limit) arr.push(value); save(); render();}
-function rateCard(key,card,rating){if(!responses[key]) responses[key]={}; responses[key][card]=rating; save(); render();}
-function pointerDown(e){touchStart={x:e.clientX,y:e.clientY};}
-function pointerUp(e,key,card){if(!touchStart)return; const dx=e.clientX-touchStart.x, dy=e.clientY-touchStart.y; touchStart=null; if(Math.abs(dx)<45&&Math.abs(dy)<45)return; if(Math.abs(dy)>Math.abs(dx)&&dy<-45) rateCard(key,card,'Explore later'); else if(dx>45) rateCard(key,card,'Include'); else if(dx<-45) rateCard(key,card,'Not needed');}
-function showNotice(msg){const n=document.getElementById('notice'); if(n){n.textContent=msg;n.classList.add('visible');} else alert(msg);}
-function resetAll(){if(confirm('Reset the questionnaire for the next person?')){localStorage.removeItem('splFeedbackResponses'); Object.keys(responses).forEach(k=>delete responses[k]); page=0; render(); scrollTop();}}
-function finish(){resetAll();}
-function buildPayload(){const flat={}; screens.forEach(s=>{if(s.type==='single'||s.type==='singleCards'){flat[s.title]=responses[s.key]==='Other' ? responses[s.key+'_other'] : (responses[s.key]||'');} if(s.type==='multiLimit'){flat[s.title]=selectedArray(s.key).join('; ');} if(s.type==='swipe'){s.cards.forEach(c=>flat[c]=responses[s.key]?.[c]||'');} if(s.type==='text'){flat[s.prompt]=responses[s.key]||'';}}); return {questionnaire:'SPL Feedback questionnaire',submittedAt:new Date().toISOString(),flatAnswers:flat,rawResponses:responses};}
-async function submitResponses(){responses._submitStatus='Sending responses to Google Sheets...'; save(); try{await fetch(GOOGLE_SHEETS_WEB_APP_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(buildPayload())}); responses._submitStatus='Responses sent. Thank you.';}catch(e){responses._submitStatus='The response could not be sent automatically. Please tell a member of staff.';} save(); if(page===screens.length-1){const el=document.getElementById('submitStatus'); if(el)el.textContent=responses._submitStatus;}}
-function escapeHtml(str){return String(str).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
-function escapeJs(str){return String(str).replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
-render();
-</script>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <div class="brand-kicker">University of Salford</div>
+        <div class="brand-title">SPL Feedback questionnaire</div>
+      </div>
+      <div class="progress-wrap" aria-label="Questionnaire progress">
+        <div class="progress-text">
+          <span>Progress</span>
+          <span id="progressText">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="nav-pills" id="navPills" aria-label="Questionnaire pages"></nav>
+
+    <main id="app"></main>
+  </div>
+
+  <script>
+    const GOOGLE_SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxJ8YAwk6NFHkI4xVp7s8PT7uZpDHpqioc0XzfB6GjXOD91R9Jbsd0MPf4Y1UWuNaRK/exec";
+    const QUESTIONNAIRE_NAME = "SPL Feedback questionnaire";
+
+    const fieldOptions = ["Adult", "CYP", "Mental Health", "Learning Disabilities", "Other"];
+    const roleOptions = ["Practice Supervisor", "Practice Assessor", "Clinical Educator", "Ward/Team Manager", "AHP / MDT colleague", "Other"];
+
+    const splPriorityOptions = [
+      "Deterioration recognition",
+      "Medicines safety",
+      "Communication & escalation",
+      "Trauma-informed practice",
+      "Safeguarding",
+      "MDT working",
+      "Paediatric assessment (CYP only)",
+      "MH crisis & de-escalation (MH only)",
+      "End-of-life care",
+      "Leadership & delegation",
+      "Complex discharge",
+      "Physical health skills for MH students"
+    ];
+
+    const structureOptions = [
+      {
+        title: "Scaffolded model",
+        detail: "Year 1 basics → Year 2 complex care → Year 3 leadership & transition to RN"
+      },
+      {
+        title: "Flexible model",
+        detail: "Any proficiency can be taught at any time, responsive to practice needs"
+      },
+      {
+        title: "Hybrid model",
+        detail: "Core scaffold + flexible elements"
+      }
+    ];
+
+    const logisticsOptions = [
+      "SPL before placements",
+      "SPL embedded in modules",
+      "Field-specific SPL blocks",
+      "Mixed-field simulation",
+      "Interprofessional simulation",
+      "Distributed sessions across the year",
+      "Blocked SPL weeks"
+    ];
+
+    const innovationOptions = [
+      "Virtual wards",
+      "Tele-health consultations",
+      "Remote monitoring",
+      "Community/home-based simulation",
+      "Digital triage",
+      "AI-supported decision-making",
+      "Family-centred tele-health (CYP)",
+      "Remote MH assessments (MH)"
+    ];
+
+    const supportOptions = [
+      "Prepare students with baseline skills",
+      "Improve communication & escalation",
+      "Build confidence before placement",
+      "Reduce teaching duplication",
+      "Provide evidence for assessment",
+      "Highlight areas needing support",
+      "Improve professionalism",
+      "Strengthen MDT readiness"
+    ];
+
+    const portfolioOptions = [
+      "Simulation performance summaries",
+      "Skills tracker (Annex A/B)",
+      "Professional behaviours over time",
+      "Student confidence ratings",
+      "Growth narrative",
+      "Academic milestones",
+      "Cross-field competence",
+      "Readiness indicators",
+      "Student goals for next placement",
+      "Facilitator feedback",
+      "Video evidence (optional)"
+    ];
+
+    const communicationOptions = [
+      "Portfolio dashboard",
+      "Simulation → practice handover summary",
+      "Email updates",
+      "Shared digital space",
+      "Termly practice-simulation meetings",
+      "Alerts for concerns"
+    ];
+
+    const beforeArrivalOptions = [
+      "Skills achieved",
+      "Areas of low confidence",
+      "Simulation performance",
+      "Professional behaviours",
+      "Academic progress",
+      "Readiness indicators"
+    ];
+
+    let page = 0;
+
+    const responses = {
+      field: "",
+      fieldOther: "",
+      role: "",
+      roleOther: "",
+      splPriorities: [],
+      structureModel: "",
+      structureModelDetail: "",
+      logistics: [],
+      innovations: {},
+      supportWays: [],
+      portfolioItems: [],
+      communicationMethod: "",
+      beforeArrival: [],
+      finalInput: "",
+      submitted: false
+    };
+
+    let message = "";
+    let isSubmitting = false;
+    let swipeStart = null;
+
+    const app = document.getElementById("app");
+    const navPills = document.getElementById("navPills");
+    const progressBar = document.getElementById("progressBar");
+    const progressText = document.getElementById("progressText");
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function setPage(nextPage) {
+      page = Math.max(0, Math.min(12, nextPage));
+      message = "";
+      render();
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    }
+
+    function completeForPage(pageNumber) {
+      switch (pageNumber) {
+        case 1:
+          return responses.field && (responses.field !== "Other" || responses.fieldOther.trim().length > 0);
+        case 2:
+          return responses.role && (responses.role !== "Other" || responses.roleOther.trim().length > 0);
+        case 3:
+          return responses.splPriorities.length === 3;
+        case 4:
+          return Boolean(responses.structureModel);
+        case 5:
+          return responses.logistics.length === 2;
+        case 6:
+          return innovationOptions.every((item) => Boolean(responses.innovations[item]));
+        case 7:
+          return responses.supportWays.length === 3;
+        case 8:
+          return responses.portfolioItems.length === 4;
+        case 9:
+          return Boolean(responses.communicationMethod);
+        case 10:
+          return responses.beforeArrival.length === 2;
+        case 11:
+          return true;
+        case 12:
+          return responses.submitted;
+        default:
+          return false;
+      }
+    }
+
+    function completedQuestionPages() {
+      let completed = 0;
+      for (let i = 1; i <= 11; i += 1) {
+        if (completeForPage(i)) completed += 1;
+      }
+      if (responses.submitted) completed += 1;
+      return completed;
+    }
+
+    function progressPercent() {
+      return Math.round((completedQuestionPages() / 12) * 100);
+    }
+
+    function renderProgress() {
+      const percent = progressPercent();
+      progressBar.style.width = `${percent}%`;
+      progressText.textContent = `${percent}%`;
+
+      if (page === 0) {
+        navPills.innerHTML = "";
+        return;
+      }
+
+      const pills = [];
+      for (let i = 1; i <= 11; i += 1) {
+        const classes = ["nav-pill"];
+        if (page === i) classes.push("active");
+        else if (completeForPage(i)) classes.push("complete");
+        pills.push(`<span class="${classes.join(" ")}">${i}</span>`);
+      }
+
+      const doneClasses = ["nav-pill"];
+      if (page === 12) doneClasses.push("active");
+      else if (responses.submitted) doneClasses.push("complete");
+      pills.push(`<span class="${doneClasses.join(" ")}">Done</span>`);
+
+      navPills.innerHTML = pills.join("");
+    }
+
+    function render() {
+      renderProgress();
+
+      if (page === 0) {
+        renderWelcome();
+        return;
+      }
+
+      if (page === 12) {
+        renderThankYou();
+        return;
+      }
+
+      const screens = {
+        1: renderField,
+        2: renderRole,
+        3: renderTopSplPriorities,
+        4: renderStructure,
+        5: renderLogistics,
+        6: renderSwipe,
+        7: renderSupport,
+        8: renderPortfolio,
+        9: renderCommunication,
+        10: renderBeforeArrival,
+        11: renderFinalInput
+      };
+
+      screens[page]();
+    }
+
+    function renderWelcome() {
+      app.innerHTML = `
+        <section class="screen welcome-screen">
+          <div class="welcome-side"></div>
+          <div class="screen-inner welcome-content">
+            <div>
+              <div>
+                <div class="brand-kicker">University of Salford</div>
+                <div class="school-line">School of Health and Society</div>
+              </div>
+
+              <div class="eyebrow">Simulated Practice Learning</div>
+              <h1>Welcome!</h1>
+              <p class="welcome-copy">
+                We’re gathering your views to shape the future of Simulated Practice Learning (SPL), the digital portfolio,
+                and communication between practice and the university.
+              </p>
+              <p class="welcome-copy">This will take 3–5 minutes.</p>
+            </div>
+
+            <div class="bottom-nav" style="grid-template-columns: 1fr;">
+              <button class="nav-button primary" onclick="setPage(1)">Start questionnaire</button>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function headerHtml(number, title, subtitle) {
+      return `
+        <section class="header-card">
+          <div class="header-main">
+            <div class="page-badge">${number}</div>
+            <h2 class="screen-title">${title}</h2>
+            <p class="screen-subtitle">${subtitle}</p>
+          </div>
+          <div class="header-progress">
+            <div>
+              <div class="header-progress-number">${number}</div>
+              <div class="header-progress-label">of 11</div>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function pageWrapper(number, title, subtitle, contentHtml, nextLabel = "Next Page") {
+      const nextDisabled = !completeForPage(number);
+      app.innerHTML = `
+        ${headerHtml(number, title, subtitle)}
+        <section class="screen">
+          <div class="screen-inner">
+            ${contentHtml}
+            ${message ? `<div class="message">${escapeHtml(message)}</div>` : ""}
+            <div class="bottom-nav">
+              <button class="nav-button back" onclick="setPage(${number - 1})">Back</button>
+              <button class="nav-button primary" ${nextDisabled ? "disabled" : ""} onclick="goNext()">${nextLabel}</button>
+              <button class="nav-button reset" onclick="resetQuestionnaire()">Reset</button>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function goNext() {
+      if (!completeForPage(page)) {
+        message = pageRequirementMessage(page);
+        render();
+        return;
+      }
+      setPage(page + 1);
+    }
+
+    function pageRequirementMessage(pageNumber) {
+      const messages = {
+        1: "Please select your field before continuing.",
+        2: "Please select your role before continuing.",
+        3: "Please choose exactly three SPL priorities.",
+        4: "Please choose one simulation structure model.",
+        5: "Please choose exactly two logistics preferences.",
+        6: "Please rate every innovation card before continuing.",
+        7: "Please choose exactly three ways SPL should support you.",
+        8: "Please choose exactly four digital portfolio items.",
+        9: "Please choose one communication method.",
+        10: "Please choose exactly two items.",
+        11: ""
+      };
+      return messages[pageNumber] || "Please complete this page before continuing.";
+    }
+
+    function singleChoiceHtml(options, selected, handlerName) {
+      const hasSelection = Boolean(selected);
+      return `
+        <div class="options-grid">
+          ${options.map((option) => {
+            const isSelected = selected === option;
+            const dimmed = hasSelection && !isSelected;
+            return `
+              <button
+                class="tile ${isSelected ? "selected" : ""} ${dimmed ? "dimmed" : ""}"
+                onclick="${handlerName}('${jsString(option)}')"
+              >${escapeHtml(option)}</button>
+            `;
+          }).join("")}
+        </div>
+      `;
+    }
+
+    function renderField() {
+      const content = `
+        <div class="hint-row">Select your field <span class="counter-badge">Tap one</span></div>
+        ${singleChoiceHtml(fieldOptions, responses.field, "selectField")}
+        ${responses.field === "Other" ? `
+          <input class="other-input" value="${escapeHtml(responses.fieldOther)}" oninput="responses.fieldOther = this.value; render();" placeholder="Type your field..." />
+        ` : ""}
+      `;
+      pageWrapper(1, "Your Role & Field", "Select your field.", content);
+    }
+
+    function renderRole() {
+      const content = `
+        <div class="hint-row">Select your role <span class="counter-badge">Tap one</span></div>
+        ${singleChoiceHtml(roleOptions, responses.role, "selectRole")}
+        ${responses.role === "Other" ? `
+          <input class="other-input" value="${escapeHtml(responses.roleOther)}" oninput="responses.roleOther = this.value; render();" placeholder="Type your role..." />
+        ` : ""}
+      `;
+      pageWrapper(2, "Your Role & Field", "Select your role in practice.", content);
+    }
+
+    function renderTopSplPriorities() {
+      const content = maxChoiceHtml(
+        "Choose your TOP 3 SPL priorities",
+        "",
+        splPriorityOptions,
+        responses.splPriorities,
+        3,
+        "toggleSplPriority"
+      );
+      pageWrapper(3, "Top SPL Priorities", "Choose the three areas that matter most to you.", content);
+    }
+
+    function renderStructure() {
+      const hasSelection = Boolean(responses.structureModel);
+      const content = `
+        <div class="hint-row">Choose ONE model you prefer</div>
+        <div class="options-grid two">
+          ${structureOptions.map((option) => {
+            const isSelected = responses.structureModel === option.title;
+            const dimmed = hasSelection && !isSelected;
+            return `
+              <button class="tile ${isSelected ? "selected" : ""} ${dimmed ? "dimmed" : ""}" onclick="selectStructure('${jsString(option.title)}', '${jsString(option.detail)}')">
+                ${escapeHtml(option.title)}
+                <span class="small">${escapeHtml(option.detail)}</span>
+              </button>
+            `;
+          }).join("")}
+        </div>
+      `;
+      pageWrapper(4, "Simulation Structure Preferences", "Tap one large tile.", content);
+    }
+
+    function renderLogistics() {
+      const content = maxChoiceHtml(
+        "Pick your TOP 2 preferences",
+        "",
+        logisticsOptions,
+        responses.logistics,
+        2,
+        "toggleLogistics"
+      );
+      pageWrapper(5, "Simulation Logistics", "Choose the two delivery preferences that would be most helpful.", content);
+    }
+
+    function renderSwipe() {
+      const nextIndex = innovationOptions.findIndex((item) => !responses.innovations[item]);
+      const nextItem = nextIndex >= 0 ? innovationOptions[nextIndex] : null;
+      const ratedCount = Object.keys(responses.innovations).length;
+
+      const content = `
+        <div class="hint-row">
+          Swipe to rate each innovation
+          <span class="counter-badge">${ratedCount} of ${innovationOptions.length} rated</span>
+        </div>
+
+        <div class="swipe-layout">
+          <div>
+            <div class="swipe-stage">
+              ${nextItem ? `
+                <div class="swipe-card" id="swipeCard">
+                  <div>
+                    <div class="swipe-label">Card ${nextIndex + 1} of ${innovationOptions.length}</div>
+                    <div class="swipe-name">${escapeHtml(nextItem)}</div>
+                  </div>
+                  <div class="swipe-instructions">
+                    Swipe right = Include<br>
+                    Swipe left = Not needed<br>
+                    Swipe up = Explore later
+                  </div>
+                </div>
+              ` : `
+                <div class="swipe-card" style="cursor: default;">
+                  <div>
+                    <div class="swipe-label">Complete</div>
+                    <div class="swipe-name">All innovation cards rated</div>
+                  </div>
+                  <div class="swipe-instructions">You can continue to the next page.</div>
+                </div>
+              `}
+            </div>
+
+            ${nextItem ? `
+              <div class="swipe-buttons">
+                <button class="mini-action not-needed" onclick="rateInnovation('${jsString(nextItem)}', 'Not needed')">← Not needed</button>
+                <button class="mini-action later" onclick="rateInnovation('${jsString(nextItem)}', 'Explore later')">↑ Explore later</button>
+                <button class="mini-action include" onclick="rateInnovation('${jsString(nextItem)}', 'Include')">Include →</button>
+              </div>
+            ` : ""}
+          </div>
+
+          <div class="innovation-summary">
+            ${innovationOptions.map((item) => innovationChipHtml(item)).join("")}
+          </div>
+        </div>
+      `;
+
+      pageWrapper(6, "New Areas of Simulation", "Swipe each card or use the large buttons underneath.", content);
+      attachSwipeHandlers(nextItem);
+    }
+
+    function innovationChipHtml(item) {
+      const rating = responses.innovations[item];
+      let className = "";
+      let status = "Not rated";
+
+      if (rating === "Include") {
+        className = "include";
+        status = "Included";
+      } else if (rating === "Not needed") {
+        className = "not-needed";
+        status = "Not needed";
+      } else if (rating === "Explore later") {
+        className = "later";
+        status = "Explore later";
+      }
+
+      return `
+        <div class="innovation-chip ${className}">
+          <span>${escapeHtml(item)}</span>
+          <span class="chip-status">${escapeHtml(status)}</span>
+        </div>
+      `;
+    }
+
+    function renderSupport() {
+      const content = maxChoiceHtml(
+        "Choose your TOP 3 ways SPL should support you",
+        "",
+        supportOptions,
+        responses.supportWays,
+        3,
+        "toggleSupport"
+      );
+      pageWrapper(7, "How SPL Can Support Supervisors & Assessors", "Choose the three most useful ways SPL can support your role.", content);
+    }
+
+    function renderPortfolio() {
+      const content = maxChoiceHtml(
+        "Choose your TOP 4 items you want in the digital portfolio",
+        "",
+        portfolioOptions,
+        responses.portfolioItems,
+        4,
+        "togglePortfolio"
+      );
+      pageWrapper(8, "Digital Portfolio", "What PARE doesn’t show.", content);
+    }
+
+    function renderCommunication() {
+      const content = `
+        <div class="hint-row">Choose your preferred communication method</div>
+        ${singleChoiceHtml(communicationOptions, responses.communicationMethod, "selectCommunication")}
+      `;
+      pageWrapper(9, "Communication Between Practice & University", "Choose the communication method that would work best for you.", content);
+    }
+
+    function renderBeforeArrival() {
+      const content = maxChoiceHtml(
+        "Choose your TOP 2 items you want to know BEFORE a student arrives",
+        "",
+        beforeArrivalOptions,
+        responses.beforeArrival,
+        2,
+        "toggleBeforeArrival"
+      );
+      pageWrapper(10, "Before a Student Arrives", "Choose the two pieces of information that would help you prepare.", content);
+    }
+
+    function renderFinalInput() {
+      const content = `
+        <div class="hint-row">One final question <span class="counter-badge">Optional</span></div>
+        <label for="finalInput" class="screen-subtitle" style="display:block; margin-bottom: 18px;">
+          “What else would help you support students more effectively?”
+        </label>
+        <textarea id="finalInput" class="free-text" placeholder="Type here if you would like to add anything..." oninput="responses.finalInput = this.value">${escapeHtml(responses.finalInput)}</textarea>
+      `;
+      pageWrapper(11, "Final Input", "One final optional question.", content, "Next Page");
+    }
+
+    function renderThankYou() {
+      app.innerHTML = `
+        <section class="screen">
+          <div class="screen-inner">
+            <div class="page-badge">Done</div>
+            <h2 class="screen-title">Thank you for your feedback.</h2>
+            <p class="screen-subtitle">
+              Your input directly shapes the new curriculum, SPL design, and digital portfolio.
+            </p>
+
+            ${responses.submitted ? `<div class="submitted-box">Submitted. Thank you.</div>` : ""}
+
+            <div class="bottom-nav">
+              <button class="nav-button back" onclick="setPage(11)">Back</button>
+              <button class="nav-button primary" ${responses.submitted || isSubmitting ? "disabled" : ""} onclick="submitQuestionnaire()">
+                ${isSubmitting ? "Submitting..." : responses.submitted ? "Submitted" : "Submit"}
+              </button>
+              <button class="nav-button reset" onclick="resetQuestionnaire()">Reset</button>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function maxChoiceHtml(prompt, rule, options, selectedArray, max, handlerName) {
+      const maxReached = selectedArray.length >= max;
+
+      return `
+        <div class="hint-row">
+          ${escapeHtml(prompt)}
+          <span class="counter-badge">${selectedArray.length} of ${max} selected</span>
+        </div>
+
+        <div class="options-grid">
+          ${options.map((option) => {
+            const isSelected = selectedArray.includes(option);
+            const locked = maxReached && !isSelected;
+            return `
+              <button
+                class="tile ${isSelected ? "selected" : ""} ${locked ? "dimmed locked" : ""}"
+                ${locked ? "disabled" : ""}
+                onclick="${handlerName}('${jsString(option)}')"
+              >${escapeHtml(option)}</button>
+            `;
+          }).join("")}
+        </div>
+      `;
+    }
+
+    function jsString(value) {
+      return String(value).replace(/\\/g, "\\\\").replace(/'/g, "\\'");
+    }
+
+    function selectField(value) {
+      responses.field = value;
+      if (value !== "Other") responses.fieldOther = "";
+      message = "";
+      render();
+    }
+
+    function selectRole(value) {
+      responses.role = value;
+      if (value !== "Other") responses.roleOther = "";
+      message = "";
+      render();
+    }
+
+    function selectStructure(title, detail) {
+      responses.structureModel = title;
+      responses.structureModelDetail = detail;
+      message = "";
+      render();
+    }
+
+    function selectCommunication(value) {
+      responses.communicationMethod = value;
+      message = "";
+      render();
+    }
+
+    function toggleArrayValue(array, value, max) {
+      const index = array.indexOf(value);
+
+      if (index >= 0) {
+        array.splice(index, 1);
+        return;
+      }
+
+      if (array.length < max) {
+        array.push(value);
+      }
+    }
+
+    function toggleSplPriority(value) {
+      toggleArrayValue(responses.splPriorities, value, 3);
+      message = "";
+      render();
+    }
+
+    function toggleLogistics(value) {
+      toggleArrayValue(responses.logistics, value, 2);
+      message = "";
+      render();
+    }
+
+    function toggleSupport(value) {
+      toggleArrayValue(responses.supportWays, value, 3);
+      message = "";
+      render();
+    }
+
+    function togglePortfolio(value) {
+      toggleArrayValue(responses.portfolioItems, value, 4);
+      message = "";
+      render();
+    }
+
+    function toggleBeforeArrival(value) {
+      toggleArrayValue(responses.beforeArrival, value, 2);
+      message = "";
+      render();
+    }
+
+    function rateInnovation(item, rating) {
+      if (!item) return;
+      responses.innovations[item] = rating;
+      message = "";
+      render();
+    }
+
+    function attachSwipeHandlers(currentItem) {
+      const card = document.getElementById("swipeCard");
+      if (!card || !currentItem) return;
+
+      card.addEventListener("pointerdown", (event) => {
+        swipeStart = {
+          x: event.clientX,
+          y: event.clientY
+        };
+        card.setPointerCapture(event.pointerId);
+        card.style.transition = "none";
+      });
+
+      card.addEventListener("pointermove", (event) => {
+        if (!swipeStart) return;
+
+        const dx = event.clientX - swipeStart.x;
+        const dy = event.clientY - swipeStart.y;
+        const rotate = dx / 22;
+
+        card.style.transform = `translate(${dx}px, ${dy}px) rotate(${rotate}deg)`;
+      });
+
+      function finishSwipe(event) {
+        if (!swipeStart) return;
+
+        const dx = event.clientX - swipeStart.x;
+        const dy = event.clientY - swipeStart.y;
+        swipeStart = null;
+
+        card.style.transition = "transform 140ms ease";
+
+        if (dy < -90 && Math.abs(dy) > Math.abs(dx) * 0.72) {
+          card.style.transform = "translate(0, -520px) rotate(0deg)";
+          setTimeout(() => rateInnovation(currentItem, "Explore later"), 120);
+          return;
+        }
+
+        if (dx > 90) {
+          card.style.transform = "translate(620px, 20px) rotate(18deg)";
+          setTimeout(() => rateInnovation(currentItem, "Include"), 120);
+          return;
+        }
+
+        if (dx < -90) {
+          card.style.transform = "translate(-620px, 20px) rotate(-18deg)";
+          setTimeout(() => rateInnovation(currentItem, "Not needed"), 120);
+          return;
+        }
+
+        card.style.transform = "translate(0, 0) rotate(0deg)";
+      }
+
+      card.addEventListener("pointerup", finishSwipe);
+      card.addEventListener("pointercancel", () => {
+        swipeStart = null;
+        card.style.transition = "transform 140ms ease";
+        card.style.transform = "translate(0, 0) rotate(0deg)";
+      });
+    }
+
+    function buildSubmissionPayload() {
+      const fieldAnswer = responses.field === "Other" ? `Other: ${responses.fieldOther.trim()}` : responses.field;
+      const roleAnswer = responses.role === "Other" ? `Other: ${responses.roleOther.trim()}` : responses.role;
+
+      const flatAnswers = {
+        "Field": fieldAnswer,
+        "Role": roleAnswer,
+        "Top 3 SPL priorities": responses.splPriorities.join("; "),
+        "Simulation structure preference": responses.structureModel,
+        "Simulation structure detail": responses.structureModelDetail,
+        "Top 2 logistics preferences": responses.logistics.join("; "),
+        "Top 3 ways SPL should support supervisors and assessors": responses.supportWays.join("; "),
+        "Top 4 digital portfolio items": responses.portfolioItems.join("; "),
+        "Preferred communication method": responses.communicationMethod,
+        "Top 2 items before student arrives": responses.beforeArrival.join("; "),
+        "Final input": responses.finalInput.trim()
+      };
+
+      innovationOptions.forEach((item) => {
+        flatAnswers[`Innovation - ${item}`] = responses.innovations[item] || "";
+      });
+
+      flatAnswers["Included innovations"] = innovationOptions
+        .filter((item) => responses.innovations[item] === "Include")
+        .join("; ");
+
+      flatAnswers["Not needed innovations"] = innovationOptions
+        .filter((item) => responses.innovations[item] === "Not needed")
+        .join("; ");
+
+      flatAnswers["Explore later innovations"] = innovationOptions
+        .filter((item) => responses.innovations[item] === "Explore later")
+        .join("; ");
+
+      return {
+        questionnaire: QUESTIONNAIRE_NAME,
+        submittedAt: new Date().toISOString(),
+        flatAnswers,
+        rawResponses: {
+          field: responses.field,
+          fieldOther: responses.fieldOther,
+          role: responses.role,
+          roleOther: responses.roleOther,
+          splPriorities: responses.splPriorities,
+          structureModel: responses.structureModel,
+          structureModelDetail: responses.structureModelDetail,
+          logistics: responses.logistics,
+          innovations: responses.innovations,
+          supportWays: responses.supportWays,
+          portfolioItems: responses.portfolioItems,
+          communicationMethod: responses.communicationMethod,
+          beforeArrival: responses.beforeArrival,
+          finalInput: responses.finalInput
+        }
+      };
+    }
+
+    async function submitQuestionnaire() {
+      if (isSubmitting || responses.submitted) return;
+
+      isSubmitting = true;
+      render();
+
+      const payload = buildSubmissionPayload();
+
+      try {
+        await fetch(GOOGLE_SHEETS_WEB_APP_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        resetQuestionnaire();
+        return;
+      } catch (error) {
+        message = "Something went wrong. Please try again.";
+      } finally {
+        isSubmitting = false;
+        render();
+      }
+    }
+
+    function resetQuestionnaire() {
+      responses.field = "";
+      responses.fieldOther = "";
+      responses.role = "";
+      responses.roleOther = "";
+      responses.splPriorities = [];
+      responses.structureModel = "";
+      responses.structureModelDetail = "";
+      responses.logistics = [];
+      responses.innovations = {};
+      responses.supportWays = [];
+      responses.portfolioItems = [];
+      responses.communicationMethod = "";
+      responses.beforeArrival = [];
+      responses.finalInput = "";
+      responses.submitted = false;
+      isSubmitting = false;
+      message = "";
+      setPage(0);
+    }
+
+    render();
+  </script>
 </body>
 </html>
